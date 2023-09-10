@@ -2,16 +2,13 @@ export class Livro{
     private _id!: string;
     private _titulo: string;
     private _autor: string;
-    private _ano: number;
-    private _genero: string;
-    private _editora: string;
+    private _ano!: number;
+    private _genero!: string;
+    private _editora!: string;
 
-    constructor(titulo: string, autor: string, ano: number, genero: string, editora: string){
+    constructor(titulo: string, autor: string){
         this._titulo = titulo;
         this._autor = autor;
-        this._ano = ano;
-        this._genero = genero;
-        this._editora = editora;
     }
 
     public get id(): string {
