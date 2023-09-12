@@ -32,9 +32,10 @@ export class HomePage {
     this.router.navigate(['/cadastrar']);
   }
 
-  editar(){
-    this.router.navigateByUrl("/editar",
-    {state: {livro:Livro}});
+  editar(Livro: Livro){
+    console.log("teste")
+    this.router.navigateByUrl("/detalhar",
+    {state: {Livro:Livro}});
   }
 
 }

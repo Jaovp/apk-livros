@@ -1,9 +1,9 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>Detalhar</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home" text="Voltar"></ion-back-button>
-    </ion-buttons>
+    <ion-button slot="start" expand="block" fill="clear" size="small" routerLink="/home">  
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -13,11 +13,7 @@
     <ion-item>
       <ion-toggle >Habilitar Edição</ion-toggle>
     </ion-item>
-    <ion-item>
-      <ion-input label="Nome" placeholder="Insira o nome"></ion-input>
-    </ion-item>
   </ion-list>
   <ion-button expand="block" >Editar</ion-button> 
   <ion-button expand="block">Excluir</ion-button> 
 </ion-content>
-

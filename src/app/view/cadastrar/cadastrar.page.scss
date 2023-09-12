@@ -8,7 +8,11 @@
     margin-bottom: 10px;
 }
 
+.btn{
+  margin-top: 15px;
+}
+
 ion-button{
   --background: #db7c1e;
-  --padding-bottom: 10px;
+  --background-activated: #db7c1e;
 }
