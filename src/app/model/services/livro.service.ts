@@ -9,9 +9,9 @@ export class LivroService {
   private lista_livros: Livro[] = [];
 
   constructor() {
-    let livro1 = new Livro("O Senhor dos Anéis", "J. R. R. Tolkien", 1954, "Fantasia", "Allen & Unwin");
-    let livro2 = new Livro("O Hobbit", "J. R. R. Tolkien", 1937, "Fantasia", "Allen & Unwin");
-    let livro3 = new Livro("O Silmarillion", "J. R. R. Tolkien", 1977, "Fantasia", "Allen & Unwin");
+    let livro1 = new Livro("O Senhor dos Anéis", "J. R. R. Tolkien");
+    let livro2 = new Livro("O Hobbit", "J. R. R. Tolkien");
+    let livro3 = new Livro("O Silmarillion", "J. R. R. Tolkien");
     this.lista_livros.push(livro1);
     this.lista_livros.push(livro2);
     this.lista_livros.push(livro3);
