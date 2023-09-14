@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Livro } from 'src/app/model/entities/Livro';
+import { Genero, Livro } from 'src/app/model/entities/Livro';
 import { FirebaseService } from 'src/app/model/services/firebase.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class CadastrarPage implements OnInit {
   titulo!: string;
   autor!: string;
   ano!: number;
-  genero!: string;
+  genero!: Genero;
   editora!: string;
 
   lista_livros: Livro[] = [];
@@ -23,12 +23,9 @@ export class CadastrarPage implements OnInit {
   }
   
   cadastrarLivro(){
-      let novo: Livro = new Livro(this.titulo, this.autor);
-      if(this.ano) novo.ano = this.ano;
-      if(this.genero) novo.genero = this.genero;
-      if(this.editora) novo.editora = this.editora;
+      let novo: Livro = new Livro(this.titulo, this.autor, this.ano, this.genero, this.editora);
       try{
-        console.log(novo);
+      console.log(novo);
       this.firebase.create(novo).then(res => {this.presentAlert("Sucesso", "Livro Cadastrado!");
       this.router.navigate(['/home']);});
       }catch(e){

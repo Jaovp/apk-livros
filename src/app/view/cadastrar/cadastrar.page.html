@@ -21,7 +21,16 @@
       <ion-input label="Ano" placeholder="Insira o ano de publicação" type="number" [(ngModel)]="ano"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="Gênero" placeholder="Insira gênero do livro" type="string" [(ngModel)]="genero"></ion-input>
+      <ion-select label="Gênero" label-placement="floating" [(ngModel)]="genero">
+        <ion-select-option value="Ficcao">Ficção Ciêntífica</ion-select-option>
+        <ion-select-option value="Fantasia">Fantasia</ion-select-option>
+        <ion-select-option value="Misterio">Mistério</ion-select-option>
+        <ion-select-option value="Romance">Romance</ion-select-option>
+        <ion-select-option value="Suspense">Suspense</ion-select-option>
+        <ion-select-option value="Terror">Terror</ion-select-option>
+        <ion-select-option value="Biografia">Biografia</ion-select-option>
+        <ion-select-option value="Outro">Outro</ion-select-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <ion-input label="Editora" placeholder="Insira a editora" type="string" [(ngModel)]="editora"></ion-input>

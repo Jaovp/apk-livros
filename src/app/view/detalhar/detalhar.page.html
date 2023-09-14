@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Detalhar</ion-title>
+  <ion-toolbar class="homeheader">
+    <ion-title class="title">Detalhar</ion-title>
     <ion-button slot="start" expand="block" fill="clear" size="small" routerLink="/home">  
       <ion-icon name="arrow-back-outline"></ion-icon>
     </ion-button>
@@ -11,9 +11,33 @@
 
   <ion-list>
     <ion-item>
-      <ion-toggle >Habilitar Edição</ion-toggle>
+      <ion-toggle (ionChange)="habilitarEdicao()">Habilitar Edição</ion-toggle>
     </ion-item>
+    <ion-item>
+      <ion-input label="Titulo" placeholder="Insira o titulo" [(ngModel)]="titulo" disabled="{{edicao}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Autor" placeholder="Insira o autor" [(ngModel)]="autor" disabled="{{edicao}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select label="Gênero" label-placement="floating" [(ngModel)]="genero" disabled="{{edicao}}">
+        <ion-select-option value="Ficcao">Ficção Ciêntífica</ion-select-option>
+        <ion-select-option value="Fantasia">Fantasia</ion-select-option>
+        <ion-select-option value="Misterio">Mistério</ion-select-option>
+        <ion-select-option value="Romance">Romance</ion-select-option>
+        <ion-select-option value="Suspense">Suspense</ion-select-option>
+        <ion-select-option value="Terror">Terror</ion-select-option>
+        <ion-select-option value="Biografia">Biografia</ion-select-option>
+        <ion-select-option value="Outro">Outro</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Ano" placeholder="Insira o ano de publicação" [(ngModel)]="ano" disabled="{{edicao}}"></ion-input>
+    </ion-item>
+    
   </ion-list>
-  <ion-button expand="block" >Editar</ion-button> 
-  <ion-button expand="block">Excluir</ion-button> 
+  <div class="ion-text-center">
+    <ion-button class="btn" expand="block" (click)="atualizar()" disabled="{{edicao}}">Editar</ion-button> 
+  </div>
+  <ion-button class="btn" expand="block" (click)="excluirConfirm()">Excluir</ion-button> 
 </ion-content>
