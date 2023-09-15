@@ -7,9 +7,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
 
-  <ion-list>
+  <ion-list class="list">
     <ion-item>
       <ion-toggle (ionChange)="habilitarEdicao()">Habilitar Edição</ion-toggle>
     </ion-item>
@@ -20,7 +20,7 @@
       <ion-input label="Autor" placeholder="Insira o autor" [(ngModel)]="autor" disabled="{{edicao}}"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-select label="Gênero" label-placement="floating" [(ngModel)]="genero" disabled="{{edicao}}">
+      <ion-select label="Gênero" interface="popover" [(ngModel)]="genero" disabled="{{edicao}}">
         <ion-select-option value="Ficcao">Ficção Ciêntífica</ion-select-option>
         <ion-select-option value="Fantasia">Fantasia</ion-select-option>
         <ion-select-option value="Misterio">Mistério</ion-select-option>
@@ -34,10 +34,10 @@
     <ion-item>
       <ion-input label="Ano" placeholder="Insira o ano de publicação" [(ngModel)]="ano" disabled="{{edicao}}"></ion-input>
     </ion-item>
-    
   </ion-list>
+
   <div class="ion-text-center">
-    <ion-button class="btn" expand="block" (click)="atualizar()" disabled="{{edicao}}">Editar</ion-button> 
+    <ion-button class="btnEditar" (click)="atualizar()" disabled="{{edicao}}">Editar</ion-button> 
+    <ion-button class="btnExcluir" (click)="excluirConfirm()">Excluir</ion-button> 
   </div>
-  <ion-button class="btn" expand="block" (click)="excluirConfirm()">Excluir</ion-button> 
 </ion-content>

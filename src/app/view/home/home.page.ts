@@ -33,7 +33,6 @@ export class HomePage {
   }
 
   editar(Livro: Livro){
-    console.log("teste")
     this.router.navigateByUrl("/detalhar",
     {state: {livro:Livro}});
   }
