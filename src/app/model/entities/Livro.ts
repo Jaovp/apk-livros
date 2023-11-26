@@ -5,6 +5,7 @@ export class Livro{
     private _ano: number;
     private _genero: Genero;
     private _editora: string;
+    private _downloadURL: any;
 
     constructor(titulo: string, autor: string, ano: number, genero: Genero, editora: string){
         this._titulo = titulo;
@@ -54,6 +55,13 @@ export class Livro{
     }
     public set editora(value: string) {
         this._editora = value;
+    }
+
+    public get downloadURL(): any {
+        return this._downloadURL;
+    }
+    public set downloadURL(value: any) {
+        this._downloadURL = value;
     }
 
 

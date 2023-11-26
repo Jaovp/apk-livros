@@ -10,8 +10,11 @@
 <ion-content>
   <ion-list [inset]="true" *ngFor="let livro of lista_livros">
     <ion-item class="conteudo" (click)="editar(livro)">
-      <ion-thumbnail slot="start">
+      <ion-thumbnail *ngIf="livro.downloadURL == null " slot="start">
         <img src="assets/icons8-book-64.png"/>
+      </ion-thumbnail>
+      <ion-thumbnail *ngIf="livro.downloadURL != null " slot="start">
+        <img src="{{livro.downloadURL}}"/>
       </ion-thumbnail>
       <br>
       <ion-label>

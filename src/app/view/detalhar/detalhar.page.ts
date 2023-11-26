@@ -17,6 +17,7 @@ export class DetalharPage implements OnInit {
   genero!: Genero;
   editora!: string;
   edicao: boolean = true;
+  public imagem: any;
 
   constructor(private router: Router, private firebaseService: FirebaseService, private alertController: AlertController) { }
 
@@ -28,20 +29,23 @@ export class DetalharPage implements OnInit {
     }
   }
 
+  public uploadFile(imagem: any){
+    this.imagem = imagem.files;
+  }
+
   atualizar(){
       let editar: Livro = new Livro(this.titulo, this.autor, this.ano, this.genero, this.editora);
-      try{
-        this.firebaseService.update(editar, this.livro.id).then(res => {this.presentAlert("Sucesso", "Livro Atualizado!");
-        this.router.navigate(['/home']);});
+      editar.id = this.livro.id;
+      if(this.imagem){
+        this.firebaseService.uploadImage(this.imagem, editar);
+      }else{
+        editar.downloadURL = this.livro.downloadURL;
+        this.firebaseService.update(editar, this.livro.id)
       }
-      catch(error){
-        this.presentAlert("Erro", "Todos os campos são obrigatórios!");
-        console.log(error);
-      }
+    this.router.navigate(["/home"]);
   }
   
   
-
   excluirConfirm(){
     this.presentConfirmAlert("Confirmação", "Deseja excluir o livro?", "Ao excluir o livro, não será possível recuperá-lo.")
   }

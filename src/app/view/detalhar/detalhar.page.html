@@ -8,10 +8,21 @@
 </ion-header>
 
 <ion-content>
-
-  <ion-list class="list">
+<ion-item>
+  <ion-toggle (ionChange)="habilitarEdicao()">Habilitar Edição</ion-toggle>
+</ion-item>
+  <ion-card>
+  <ion-list class="list" lines="none">
+    <ion-item *ngIf="livro.downloadURL != null">
+      <img id="header-img" src="{{livro.downloadURL}}" />
+    </ion-item>
+    <ion-item *ngIf="livro.downloadURL == null">
+      <img id="header-img" src="{{livro.downloadURL}}" />
+    </ion-item>
     <ion-item>
-      <ion-toggle (ionChange)="habilitarEdicao()">Habilitar Edição</ion-toggle>
+      <ion-button size="small" color="success" shape="round" disabled="{{edicao}}">
+        <input type="file" (change)="uploadFile($event.target)"/>
+      </ion-button>
     </ion-item>
     <ion-item>
       <ion-input label="Titulo" placeholder="Insira o titulo" [(ngModel)]="titulo" disabled="{{edicao}}"></ion-input>
@@ -36,6 +47,7 @@
     </ion-item>
   </ion-list>
 
+</ion-card>
   <div class="ion-text-center">
     <ion-button class="btnEditar" (click)="atualizar()" disabled="{{edicao}}">Editar</ion-button> 
     <ion-button class="btnExcluir" (click)="excluirConfirm()">Excluir</ion-button> 

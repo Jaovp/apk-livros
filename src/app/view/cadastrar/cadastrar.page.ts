@@ -16,21 +16,30 @@ export class CadastrarPage implements OnInit {
   ano!: number;
   genero!: Genero;
   editora!: string;
+  public imagem: any;
 
   lista_livros: Livro[] = [];
 
   constructor(private alertController: AlertController, private firebase: FirebaseService, private router: Router) {
   }
+
+  public uploadFile(imagem: any){
+    this.imagem = imagem.files;
+  }
   
   cadastrarLivro(){
+    if(this.titulo && this.autor && this.ano && this.genero && this.editora){
       let novo: Livro = new Livro(this.titulo, this.autor, this.ano, this.genero, this.editora);
-      try{
-      console.log(novo);
-      this.firebase.create(novo).then(res => {this.presentAlert("Sucesso", "Livro Cadastrado!");
-      this.router.navigate(['/home']);});
-      }catch(e){
-        this.presentAlert("Erro", "Preencha todos os campos!");
+      if(this.imagem){
+        this.firebase.uploadImage(this.imagem, novo);
+      }else{
+        this.firebase.create(novo);
       }
+      this.presentAlert("Sucesso", "Livro Cadastrado!");
+      this.router.navigate(['/home']);
+    }else{
+      this.presentAlert("Erro", "Preencha todos os campos!");
+    }
     
   }
   
