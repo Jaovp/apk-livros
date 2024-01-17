@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AlertService } from 'src/app/common/alert.service';
 import { Genero, Livro } from 'src/app/model/entities/Livro';
+import { AuthService } from 'src/app/model/services/auth.service';
 import { FirebaseService } from 'src/app/model/services/firebase.service';
 
 @Component({
@@ -18,8 +20,11 @@ export class DetalharPage implements OnInit {
   editora!: string;
   edicao: boolean = true;
   public imagem: any;
+  public user: any;
 
-  constructor(private router: Router, private firebaseService: FirebaseService, private alertController: AlertController) { }
+  constructor(private router: Router, private firebaseService: FirebaseService, private alertController: AlertController, private authService : AuthService, private alert : AlertService) {
+    this.user = this.authService.getUserLogged();
+   }
 
   habilitarEdicao(){
     if(this.edicao){
@@ -35,12 +40,18 @@ export class DetalharPage implements OnInit {
 
   atualizar(){
       let editar: Livro = new Livro(this.titulo, this.autor, this.ano, this.genero, this.editora);
+      editar.uid = this.user.uid;
       editar.id = this.livro.id;
+      this.alert.simpleLoader();
       if(this.imagem){
         this.firebaseService.uploadImage(this.imagem, editar);
       }else{
         editar.downloadURL = this.livro.downloadURL;
-        this.firebaseService.update(editar, this.livro.id)
+        this.firebaseService.update(editar, this.livro.id).then(res => {
+        this.alert.dismissLoader();
+        this.presentAlert("Sucesso", "Livro Atualizado!");
+        })
+        console.log(editar);
       }
     this.router.navigate(["/home"]);
   }

@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-button class="exit" size="small" (click)="logout()">
+    <ion-icon name="exit-outline"></ion-icon>
+  </ion-button>
   <ion-list [inset]="true" *ngFor="let livro of lista_livros">
     <ion-item class="conteudo" (click)="editar(livro)">
       <ion-thumbnail *ngIf="livro.downloadURL == null " slot="start">

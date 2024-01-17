@@ -13,8 +13,8 @@ export class FirebaseService {
 
   constructor(private firestore: AngularFirestore, private storage : AngularFireStorage) { }
 
-  read(){
-    return this.firestore.collection(this.PATH).snapshotChanges();
+  read(uid: string){
+    return this.firestore.collection(this.PATH, ref=> ref.where('uid', '==', uid)).snapshotChanges();
   }
 
   create(livro: Livro){
@@ -24,11 +24,12 @@ export class FirebaseService {
       ano: livro.ano,
       genero: livro.genero,
       editora: livro.editora,
+      uid: livro.uid,
       });
   }
 
   createWithImage(livro: Livro){
-    return this.firestore.collection(this.PATH).add({titulo: livro.titulo, autor: livro.autor, ano: livro.ano, genero: livro.genero, editora: livro.editora, downloadURL: livro.downloadURL})
+    return this.firestore.collection(this.PATH).add({titulo: livro.titulo, autor: livro.autor, ano: livro.ano, genero: livro.genero, editora: livro.editora, downloadURL: livro.downloadURL, uid: livro.uid,})
   }
 
   update(livro: Livro, id: string){
@@ -38,11 +39,18 @@ export class FirebaseService {
         ano: livro.ano,
         genero: livro.genero,
         editora: livro.editora,
+        uid: livro.uid,
       });
   }
 
   updateWithImage(livro: Livro, id: string){
-    return this.firestore.collection(this.PATH).doc(id).update({titulo: livro.titulo, autor: livro.autor, ano: livro.ano, genero: livro.genero, editora: livro.editora, downloadURL: livro.downloadURL}) 
+    return this.firestore.collection(this.PATH).doc(id).update({
+      titulo: livro.titulo,
+      autor: livro.autor,
+      ano: livro.ano, genero: livro.genero,
+      editora: livro.editora,
+      downloadURL: livro.downloadURL,
+      uid: livro.uid,}) 
   }
   
   delete(id: string){
