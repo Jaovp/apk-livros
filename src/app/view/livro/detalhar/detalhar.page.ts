@@ -45,14 +45,13 @@ export class DetalharPage implements OnInit {
       this.alert.simpleLoader();
       if(this.imagem){
         this.firebaseService.uploadImage(this.imagem, editar);
-      }else{
-        editar.downloadURL = this.livro.downloadURL;
-        this.firebaseService.update(editar, this.livro.id).then(res => {
-        this.alert.dismissLoader();
-        this.presentAlert("Sucesso", "Livro Atualizado!");
-        })
-        console.log(editar);
       }
+      editar.downloadURL = this.livro.downloadURL;
+      this.firebaseService.update(editar, this.livro.id).then(res => {
+      this.alert.dismissLoader();
+      this.presentAlert("Sucesso", "Livro Atualizado!");
+      })
+      console.log(editar);
     this.router.navigate(["/home"]);
   }
   

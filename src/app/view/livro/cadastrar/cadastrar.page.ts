@@ -37,17 +37,17 @@ export class CadastrarPage implements OnInit {
       novo.uid = this.user.uid;
       this.alert.simpleLoader();
       if(this.imagem){
-        this.firebase.uploadImage(this.imagem, novo);
+        this.firebase.uploadImage(this.imagem, novo)
+      }else{
+        this.firebase.create(novo)
       }
-        this.firebase.create(novo).then(res => {
-          this.alert.dismissLoader();
-          this.alert.presentAlert("Sucesso", "Livro Atualizado!");
-        });
+      this.alert.dismissLoader();    
       this.router.navigate(['/home']);
-      
+      this.alert.presentAlert("Sucesso", "Livro Atualizado!");
     }else{
       this.alert.presentAlert("Erro", "Preencha todos os campos!");
     }
+  
   
   }
   
