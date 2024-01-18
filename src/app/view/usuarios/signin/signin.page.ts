@@ -68,6 +68,19 @@ export class SigninPage implements OnInit {
     });
   }
 
+  logarComGithub(){
+    this.authService.signInWithGithub()
+    .then((res) => {
+      this.alert.presentAlert('Olá','Seja Bem-Vindo!');
+      this.router.navigate(["/home"]);
+      console.log(res);
+    })
+    .catch((error) => {
+      this.alert.presentAlert('Erro ao Logar', 'Tente Novamente');
+      console.log(error.message);
+    });
+  }
+
   irParaSignUp(){
     this.router.navigate(["/signup"]);
   }
