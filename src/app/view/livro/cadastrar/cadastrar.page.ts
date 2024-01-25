@@ -30,6 +30,7 @@ export class CadastrarPage implements OnInit {
   public uploadFile(imagem: any){
     this.imagem = imagem.files;
   }
+
   
   cadastrarLivro(){
     if(this.titulo && this.autor && this.ano && this.genero && this.editora){
@@ -37,29 +38,25 @@ export class CadastrarPage implements OnInit {
       novo.uid = this.user.uid;
       this.alert.simpleLoader();
       if(this.imagem){
-        this.firebase.uploadImage(this.imagem, novo)
+        this.firebase.uploadImage(this.imagem, novo).then(() => {
+          this.alert.dismissLoader();
+        })
+        .catch(error => {
+          console.error(error);
+        });
       }else{
-        this.firebase.create(novo)
+        this.firebase.create(novo).then(() => {
+          this.alert.dismissLoader();
+        }
+        ).catch(error => {
+          console.error(error);
+        });
       }
-      this.alert.dismissLoader();    
       this.router.navigate(['/home']);
-      this.alert.presentAlert("Sucesso", "Livro Atualizado!");
+      this.alert.presentAlert("Sucesso", "Livro Cadastrado!");
     }else{
       this.alert.presentAlert("Erro", "Preencha todos os campos!");
     }
-  
-  
-  }
-  
-  async presentAlert(subHeader: string, message: string) {
-    const alert = await this.alertController.create({
-      header: 'Meus Livros',
-      subHeader: subHeader,
-      message: message,
-      buttons: ['OK'],
-    });
-
-    await alert.present();
   }
 
   ngOnInit() {

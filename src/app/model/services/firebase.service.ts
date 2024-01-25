@@ -58,27 +58,38 @@ export class FirebaseService {
   }
 
   uploadImage(imagem: any, livro: Livro){
-    const file = imagem.item(0);
-    if(file.type.split('/')[0] !== 'image'){
-      console.error('Arquivo não suportado');
-      return;
-    }
-    const path = `images/${livro.titulo}_${file.name}`;
-    const fileRef = this.storage.ref(path);
-    let task = this.storage.upload(path, file);
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        let uploadedFileURL = fileRef.getDownloadURL();
-        uploadedFileURL.subscribe(resp => {
-          livro.downloadURL = resp;
-          if(!livro.id){
-            this.createWithImage(livro);
-          }else{
-            this.updateWithImage(livro, livro.id);
-          }
-        })
-      })
-    ).subscribe();
-  }
+    return new Promise((resolve, reject) => {
+      const file = imagem.item(0);
+      if (file.type.split('/')[0] !== 'image') {
+        console.error('Arquivo não suportado');
+        reject('Arquivo não suportado');
+        return;
+      }
   
+      const path = `images/${livro.titulo}_${file.name}`;
+      const fileRef = this.storage.ref(path);
+      let task = this.storage.upload(path, file);
+  
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          let uploadedFileURL = fileRef.getDownloadURL();
+          uploadedFileURL.subscribe(
+            resp => {
+              livro.downloadURL = resp;
+              if (!livro.id) {
+                this.createWithImage(livro);
+              } else {
+                this.updateWithImage(livro, livro.id);
+              }
+              resolve(resp);
+            },
+            error => {
+              reject(error); 
+            }
+          );
+        })
+      ).subscribe();
+    });
+ }
+
 }

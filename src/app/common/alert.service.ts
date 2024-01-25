@@ -5,7 +5,9 @@ import { AlertController, LoadingController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class AlertService {
-  constructor(private alertController : AlertController,  private loadingController : LoadingController) { }
+  constructor(private alertController : AlertController,
+    private loadingController : LoadingController,
+  ){}
 
   async presentAlert(subHeader : string, message : string) {
     const alert = await this.alertController.create({
@@ -32,4 +34,5 @@ export class AlertService {
       console.error('Error dismissing loader:', error);
     });
   }
+
 }
