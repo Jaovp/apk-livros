@@ -23,6 +23,8 @@ export class CadastrarPage implements OnInit {
   editora!: string;
   public imagem: any;
   user: any;
+  anoAtual!: number;
+
 
   lista_livros: Livro[] = [];
 
@@ -35,13 +37,14 @@ export class CadastrarPage implements OnInit {
       editora : new FormControl('')
     })
     this.user = this.authService.getUserLogged();
+    this.anoAtual = new Date().getFullYear();
   }
 
   ngOnInit() {
     this.formCadastrar = this.formBuilder.group({
       titulo : ['', [Validators.required]],
-      autor : ['',[Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]],
-      ano : ['',[Validators.required, Validators.min(1000), Validators.max(2050)]],
+      autor : ['',[Validators.required]],
+      ano : ['',[Validators.required, Validators.min(1), Validators.max(this.anoAtual)]],
       genero : ['',[Validators.required]],
       editora : ['',[Validators.required]]
     });

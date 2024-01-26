@@ -23,6 +23,7 @@ export class DetalharPage implements OnInit {
   public imagem: any;
   public user: any;
   formAtualizar : FormGroup;
+  anoAtual!: number;
 
   constructor(private router: Router, private firebaseService: FirebaseService, private alertController: AlertController, private authService : AuthService, private alert : AlertService, private formBuilder : FormBuilder) {
     this.formAtualizar = new FormGroup({
@@ -33,6 +34,7 @@ export class DetalharPage implements OnInit {
       editora : new FormControl('')
     })
     this.user = this.authService.getUserLogged();
+    this.anoAtual = new Date().getFullYear();
    }
 
    get errorControl(){
@@ -130,8 +132,8 @@ export class DetalharPage implements OnInit {
     
     this.formAtualizar = this.formBuilder.group({
       titulo : [this.livro.titulo, [Validators.required]],
-      autor : [this.livro.autor,[Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]],
-      ano : ['',[Validators.required, Validators.min(1000), Validators.max(2050)]],
+      autor : [this.livro.autor,[Validators.required]],
+      ano : [this.livro.ano,[Validators.required, Validators.min(1), Validators.max(this.anoAtual)]],
       genero : [this.livro.genero,[Validators.required]],
       editora : [this.livro.editora,[Validators.required]]
     });

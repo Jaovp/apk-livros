@@ -21,12 +21,11 @@
       </ion-item>
       <span *ngIf="formCadastrar.get('autor')?.touched && formCadastrar.get('autor')?.errors?.['required']">Autor(a) é Obrigatório!</span>
       <ion-item>
-        <ion-input formControlName="ano" label="Ano" placeholder="Insira o ano de publicação" type="number" ></ion-input>
+        <ion-input formControlName="ano" label="Ano" placeholder="Insira o ano de publicação" type="number" maxLength="4"></ion-input>
       </ion-item>
       <span *ngIf="formCadastrar.get('ano')?.touched && formCadastrar.get('ano')?.errors?.['required']">Ano é Obrigatório!</span>
-      <span *ngIf="formCadastrar.get('ano')?.touched && formCadastrar.get('ano')?.hasError('min')">Ano deve ter pelo menos 4 caracteres!</span>
-      <span *ngIf="formCadastrar.get('ano')?.touched && formCadastrar.get('ano')?.hasError('max')">Ano não pode ter mais de 4 caracteres!</span>
-  
+      <span *ngIf="formCadastrar.get('ano')?.touched && formCadastrar.get('ano')?.hasError('min')">Insira um ano válido!</span>
+      <span *ngIf="formCadastrar.get('ano')?.touched && formCadastrar.get('ano')?.hasError('max')">Insira um ano válido!</span>
       <ion-item>
         <ion-select formControlName="genero" label="Gênero" interface="popover">
           <ion-select-option value="Ficcao">Ficção Ciêntífica</ion-select-option>
