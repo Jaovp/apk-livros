@@ -1,12 +1,23 @@
 
 ion-content {
     --background: #db7c1e;
-  }
-
-.list{
-    max-width: 300px;
-    margin: 30px;
-    margin-top: 300px;
+    text-align: center;
+    border: 10px solid #ff8500;
 }
 
-  
+.list{
+    border-radius: 4px;
+    margin-top: 200px;
+}
+
+.item{
+    margin: 5px;
+}
+
+ion-button{
+    margin: 10px;
+}
+
+span{
+    color: red;
+}

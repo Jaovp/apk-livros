@@ -1,10 +1,11 @@
 
 <ion-content class="ion-padding">
-
+  <div class="content">
+  
   <ion-list class="list">
     <form [formGroup]="formLogar" (ngSubmit)="submitForm()" class="form">
 
-      <ion-item>
+      <ion-item class="item">
         <ion-label position="floating">Email</ion-label>
         <ion-input type="email" formControlName="email"></ion-input>
       </ion-item>
@@ -27,9 +28,9 @@
         Entrar com Github
         <ion-icon slot="end" name="logo-github"></ion-icon>
       </ion-button>
-      <a (click)="irParaSignUp()">Não tem Cadastro? Clique aqui!</a>
+      <a class="a" (click)="irParaSignUp()">Não tem Cadastro? Clique aqui!</a>
 
     </form>
   </ion-list>
-
+  </div>
 </ion-content>

@@ -10,6 +10,7 @@
 
 .list{
     margin: 15px;
+    text-align: center;
 }
 
 .btnEditar{
@@ -37,4 +38,8 @@ ion-button{
     object-fit: cover;
     object-position: center;
     border-radius: 10px, 10px, 0, 0;
+}
+
+span{
+    color: red;
 }

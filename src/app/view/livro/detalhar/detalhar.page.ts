@@ -5,6 +5,7 @@ import { AlertService } from 'src/app/common/alert.service';
 import { Genero, Livro } from 'src/app/model/entities/Livro';
 import { AuthService } from 'src/app/model/services/auth.service';
 import { FirebaseService } from 'src/app/model/services/firebase.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-detalhar',
@@ -21,12 +22,35 @@ export class DetalharPage implements OnInit {
   edicao: boolean = true;
   public imagem: any;
   public user: any;
+  formAtualizar : FormGroup;
 
-  constructor(private router: Router, private firebaseService: FirebaseService, private alertController: AlertController, private authService : AuthService, private alert : AlertService) {
+  constructor(private router: Router, private firebaseService: FirebaseService, private alertController: AlertController, private authService : AuthService, private alert : AlertService, private formBuilder : FormBuilder) {
+    this.formAtualizar = new FormGroup({
+      titulo : new FormControl(''),
+      autor : new FormControl(''),
+      ano: new FormControl(''),
+      genero: new FormControl(''),
+      editora : new FormControl('')
+    })
     this.user = this.authService.getUserLogged();
    }
 
-  habilitarEdicao(){
+   get errorControl(){
+    return this.formAtualizar.controls;
+  }
+
+  submitForm() : boolean{
+    if(!this.formAtualizar.valid){
+      this.alert.presentAlert('Erro', 'Erro ao Preencher!');
+      return false;
+    }else{
+      this.alert.simpleLoader();
+      this.atualizar();
+      return true;
+    }
+  }
+
+  habilitarEdicao() {
     if(this.edicao){
       this.edicao = false
     }else{
@@ -39,7 +63,8 @@ export class DetalharPage implements OnInit {
   }
 
   atualizar(){
-      let editar: Livro = new Livro(this.titulo, this.autor, this.ano, this.genero, this.editora);
+      const { titulo, autor, ano, genero, editora } = this.formAtualizar.value;
+      let editar: Livro = new Livro(titulo, autor, ano, genero, editora);
       editar.uid = this.user.uid;
       editar.id = this.livro.id;
       this.alert.simpleLoader();
@@ -102,12 +127,14 @@ export class DetalharPage implements OnInit {
 
   ngOnInit() {
     this.livro = history.state.livro;
-    this.titulo = this.livro.titulo;
-    this.autor = this.livro.autor;
-    this.ano = this.livro.ano;
-    this.genero = this.livro.genero;
-    this.editora = this.livro.editora;
     
+    this.formAtualizar = this.formBuilder.group({
+      titulo : [this.livro.titulo, [Validators.required]],
+      autor : [this.livro.autor,[Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]],
+      ano : ['',[Validators.required, Validators.min(1000), Validators.max(2050)]],
+      genero : [this.livro.genero,[Validators.required]],
+      editora : [this.livro.editora,[Validators.required]]
+    });
   }
 
 }
