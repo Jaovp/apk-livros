@@ -1,0 +1,10 @@
+<ion-item>
+  <ion-thumbnail slot="start" *ngIf="livro.downloadURL != null">
+    <img alt="downloadURL of {{livro.nome}}" src="{{livro.downloadURL}}" />
+  </ion-thumbnail>
+  <ion-thumbnail slot="start" *ngIf="livro.downloadURL == null">
+    <img alt="downloadURL not found" src="src\assets\icons8-book-64.png" />
+  </ion-thumbnail>
+  <ion-label> {{livro.nome}} </ion-label>
+  <ion-label> {{livro.autor}} </ion-label>
+</ion-item>
