@@ -1,0 +1,18 @@
+<ion-item lines="none">
+  <ion-thumbnail slot="start" *ngIf="livro.downloadURL != null">
+    <img src="{{livro.downloadURL}}" />
+  </ion-thumbnail>
+  <ion-thumbnail slot="start" *ngIf="livro.downloadURL == null">
+    <img src="assets/icons8-book-64.png" />
+  </ion-thumbnail>
+  <ion-label color="primary" class="ion-text-wrap" >
+    <h2>{{ livro.titulo }}</h2>
+    <ion-label>
+      <p>Autor: {{ livro.autor }}</p>
+      <p>Ano: {{ livro.ano }}</p>
+      <p>Gênero: {{ livro.genero }}</p>
+      <p>Editora: {{ livro.editora }}</p>
+    </ion-label>
+  </ion-label>
+
+</ion-item>

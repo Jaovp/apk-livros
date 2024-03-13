@@ -4,32 +4,23 @@
       <ion-icon name="book-outline"></ion-icon>
       Meus Livros
     </ion-title>
+    <ion-button class="exit" size="small" (click)="logout()">
+      <ion-icon name="exit-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
+<ion-item-group *ngIf="lista_livros.length > 0" style="margin-top: 2%;">
+  <ion-searchbar #mySearchbar animated debounce="800" #searchInput (ionChange)="onSearchChange($event)"></ion-searchbar>
+</ion-item-group>
 <ion-content>
-  <ion-button class="exit" size="small" (click)="logout()">
-    <ion-icon name="exit-outline"></ion-icon>
-  </ion-button>
-  <ion-list [inset]="true" *ngFor="let livro of lista_livros">
-    <ion-item class="conteudo" (click)="editar(livro)">
-      <ion-thumbnail *ngIf="livro.downloadURL == null " slot="start">
-        <img src="assets/icons8-book-64.png"/>
-      </ion-thumbnail>
-      <ion-thumbnail *ngIf="livro.downloadURL != null " slot="start">
-        <img src="{{livro.downloadURL}}"/>
-      </ion-thumbnail>
-      <br>
-      <ion-label>
-        <h2>{{livro.titulo}}</h2>
-        <p>{{livro.autor}}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-
+  <app-empty-livros *ngIf="livrosBuscados.length === 0 && !isLoading"></app-empty-livros>
+  <app-loading-livros *ngIf="isLoading"></app-loading-livros>
+  <app-book *ngFor="let livro of livrosBuscados" [livro]="livro" (click)="editar(livro)"></app-book>
+  
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="cadastrar()">
-      <ion-icon name="add"></ion-icon>
+    <ion-fab-button (click)="cadastrar()" color="primary-crontrast">
+      <ion-icon name="add" color="primary"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>
