@@ -14,28 +14,29 @@ export class HomePage {
 
   @ViewChild('searchbar') searchbar!: IonSearchbar;
   lista_livros: Livro[] = [];
-  livro: Livro[] = [];
+  livrosBuscados: Livro[] = [];
   public user: any;
   isLoading: boolean = false;
   query: any;
 
-  
-  //this.lista_livros.push(new Livro("O Senhor dos Anéis", "J. R. R. Tolkien", 1954, "Fantasia", "Allen & Unwin"));
-  //this.lista_livros.push(new Livro("O Hobbit", "J. R. R. Tolkien", 1937, "Fantasia", "Allen & Unwin"));
+
   
   constructor(private router: Router, private firebase: FirebaseService, private authService: AuthService) {
     this.isLoading = true;
     this.user = this.authService.getUserLogged();
     console.log(this.user);
     this.firebase.read(this.user.uid).subscribe(res => {
-      this.lista_livros = res.map( livro => {
+      this.lista_livros = res.map(livro => {
         return {
           id: livro.payload.doc.id,
           ...livro.payload.doc.data() as any
         } as Livro;
       });
-    })
-  };
+      this.livrosBuscados = this.lista_livros;
+      this.isLoading = false;
+    });
+  }
+  
 
 
   cadastrar(){
@@ -54,18 +55,20 @@ export class HomePage {
     });
   }
 
-  async onSearchChange(event : any) {
+  async onSearchChange(event: any) {
     this.query = event.detail.value.toLowerCase();
-    this.livro = [];
+    this.livrosBuscados = [];
     if (this.query.length > 0) {
       this.isLoading = true;
       setTimeout(async () => {
-        this.livro = this.lista_livros.filter((livro: Livro) =>
-        livro.titulo && livro.titulo.toLowerCase().includes(this.query)
-      );
-        console.log(this.livro);
+        this.livrosBuscados = this.lista_livros.filter((livro: Livro) =>
+          livro.titulo && livro.titulo.toLowerCase().includes(this.query)
+        );
+        console.log(this.livrosBuscados);
         this.isLoading = false;
       }, 2000);
+    } else {
+      this.livrosBuscados = this.lista_livros;
     }
   }
 

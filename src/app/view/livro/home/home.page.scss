@@ -19,10 +19,10 @@ ion-content{
 }
 
 ion-fab-button{
-  --background: #db7c1e;
-  --background-activated: #db7c1e;
+  --background: var(--ion-color-primary)
+  --background-activated: var(--ion-color-primary)
 }
 
 ion-button.exit{ 
-  --background: #db7c1e;
+  --background: var(--ion-color-primary)
 }
