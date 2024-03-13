@@ -14,9 +14,8 @@
   <ion-searchbar #mySearchbar animated debounce="800" #searchInput (ionChange)="onSearchChange($event)"></ion-searchbar>
 </ion-item-group>
 <ion-content>
+  <app-empty-livros *ngIf="livrosBuscados.length === 0 && !isLoading"></app-empty-livros>
   <app-loading-livros *ngIf="isLoading"></app-loading-livros>
-
-  
   <app-book *ngFor="let livro of livrosBuscados" [livro]="livro" (click)="editar(livro)"></app-book>
   
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
